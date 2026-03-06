@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Invisible Middleman | India's JAM Trinity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --saffron: #E8680C;
+      --saffron-light: #F5A660;
+      --ink: #0F1923;
+      --ink-mid: #1F2D3D;
+      --parchment: #FAF7F2;
+      --sand: #EDE8DF;
+      --green: #1A6B4A;
+      --green-light: #2D9B6E;
+      --text: #2C3A47;
+      --muted: #7A8895;
+      --white: #FFFFFF;
+      --border: rgba(232,104,12,0.18);
+      --glow: rgba(232,104,12,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--parchment);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(15,25,35,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,104,12,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--saffron);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 2.2rem; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--saffron-light); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--ink);
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,104,12,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,104,12,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(232,104,12,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 70% at 80% 80%, rgba(26,107,74,0.12) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 860px;
+      padding: 8rem 3rem 4rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--saffron);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--saffron);
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 580px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--saffron);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 3px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #c95800; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+      font-size: 0.9rem;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--saffron); color: var(--saffron); }
+
+    /* JAM TRINITY VISUAL */
+    .hero-jam {
+      position: absolute;
+      right: -40px; top: 50%;
+      transform: translateY(-50%);
+      width: min(480px, 42vw);
+      display: flex; flex-direction: column; gap: 1.2rem;
+      padding: 2rem;
+    }
+
+    .jam-pillar {
+      padding: 1.4rem 1.8rem;
+      border-left: 3px solid;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+      border-radius: 0 6px 6px 0;
+      animation: slideIn 0.8s both;
+    }
+
+    .jam-pillar:nth-child(1) { border-color: var(--saffron); animation-delay: 0.2s; }
+    .jam-pillar:nth-child(2) { border-color: #FFFFFF; animation-delay: 0.4s; }
+    .jam-pillar:nth-child(3) { border-color: var(--green-light); animation-delay: 0.6s; }
+
+    @keyframes slideIn {
+      from { opacity:0; transform: translateX(30px); }
+      to   { opacity:1; transform: translateX(0); }
+    }
+
+    .jam-pillar-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .jam-pillar:nth-child(1) .jam-pillar-letter { color: var(--saffron); }
+    .jam-pillar:nth-child(2) .jam-pillar-letter { color: var(--white); }
+    .jam-pillar:nth-child(3) .jam-pillar-letter { color: var(--green-light); }
+
+    .jam-pillar-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.2rem;
+    }
+
+    .jam-pillar-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 0.5rem;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-indicator {
+      position: absolute; bottom: 2.5rem; left: 3rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--saffron);
+      animation: scanLine 2s infinite;
+    }
+
+    @keyframes scanLine {
+      from { left: -100%; } to { left: 100%; }
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--ink-mid);
+      padding: 2.5rem 3rem;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(232,104,12,0.2);
+      border-bottom: 1px solid rgba(232,104,12,0.2);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--saffron);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+    }
+
+    /* ── SECTION BASE ── */
+    section { position: relative; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .section-pad { padding: 7rem 0; }
+
+    .section-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      display: block; width: 24px; height: 1px;
+      background: var(--saffron);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 680px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    /* ── HISTORICAL CONTEXT ── */
+    #history {
+      background: var(--white);
+    }
+
+    .history-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .history-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .history-text p strong {
+      color: var(--ink);
+    }
+
+    .history-sidebar {
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+
+    .callout-box {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--saffron);
+      padding: 1.5rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout-box .callout-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--saffron);
+      line-height: 1;
+    }
+
+    .callout-box .callout-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .timeline {
+      margin-top: 2rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--saffron), var(--green));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 2rem 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--saffron);
+      border: 2px solid var(--white);
+    }
+
+    .timeline-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--saffron);
+      letter-spacing: 0.1em;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink);
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TECHNICAL ARCHITECTURE ── */
+    #architecture {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    #architecture .section-title { color: var(--white); }
+    #architecture .section-lead { color: rgba(255,255,255,0.55); }
+
+    .arch-steps {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin: 3rem 0;
+    }
+
+    .arch-step {
+      position: relative;
+      padding: 2rem 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s;
+    }
+
+    .arch-step:hover { background: rgba(232,104,12,0.08); }
+
+    .arch-step::after {
+      content: '→';
+      position: absolute; right: -12px; top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      font-size: 1rem;
+      color: var(--saffron);
+    }
+
+    .arch-step:last-child::after { display: none; }
+
+    .arch-step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--saffron);
+      margin-bottom: 0.8rem;
+    }
+
+    .arch-step-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .arch-step-desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    .arch-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .arch-pillar-card {
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+
+    .arch-pillar-card:hover { border-color: var(--saffron); }
+
+    .arch-pillar-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .arch-pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .arch-pillar-subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--saffron);
+      margin-bottom: 1rem;
+    }
+
+    .arch-pillar-desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+
+    .arch-pillar-tags {
+      margin-top: 1.2rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.7rem;
+      background: rgba(232,104,12,0.15);
+      color: var(--saffron-light);
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ── EMPIRICAL EVIDENCE ── */
+    #evidence {
+      background: var(--parchment);
+    }
+
+    .evidence-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .evidence-card {
+      background: var(--white);
+      border: 1px solid #E8E2D9;
+      border-radius: 6px;
+      padding: 1.8rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .evidence-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .evidence-card.positive { border-top: 3px solid var(--green); }
+    .evidence-card.negative { border-top: 3px solid #C0392B; }
+    .evidence-card.mixed { border-top: 3px solid var(--saffron); }
+
+    .evidence-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    .evidence-badge.pos { background: rgba(26,107,74,0.1); color: var(--green); }
+    .evidence-badge.neg { background: rgba(192,57,43,0.1); color: #C0392B; }
+    .evidence-badge.mix { background: rgba(232,104,12,0.1); color: var(--saffron); }
+
+    .evidence-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .evidence-card ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .evidence-card ul li {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .evidence-card ul li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      font-size: 0.65rem;
+      color: var(--saffron);
+    }
+
+    .table-wrapper {
+      margin-top: 3rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead tr {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    thead th {
+      padding: 1rem 1.4rem;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.82rem;
+    }
+
+    thead th:first-child { border-radius: 8px 0 0 0; }
+    thead th:last-child { border-radius: 0 8px 0 0; }
+
+    tbody tr:nth-child(even) { background: var(--sand); }
+    tbody tr:nth-child(odd) { background: var(--white); }
+    tbody tr:hover { background: rgba(232,104,12,0.06); }
+
+    tbody td {
+      padding: 0.9rem 1.4rem;
+      color: var(--text);
+      border-bottom: 1px solid #E8E2D9;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .plus { color: var(--green); font-weight: 700; }
+    .minus { color: #C0392B; font-weight: 700; }
+
+    /* ── COMPARATIVE MODELS ── */
+    #comparative {
+      background: var(--white);
+    }
+
+    .compare-intro {
+      display: grid; grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .compare-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .global-card {
+      padding: 1.5rem;
+      border: 1px solid #E8E2D9;
+      border-radius: 6px;
+      background: var(--parchment);
+    }
+
+    .global-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .global-card .country-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--saffron);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .global-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .global-cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .scalability-factors {
+      margin-top: 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .factor-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--parchment);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .factor-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .factor-card h4 {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .factor-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── RISKS ── */
+    #risks {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    #risks .section-title { color: var(--white); }
+    #risks .section-lead { color: rgba(255,255,255,0.55); }
+
+    .risks-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .risk-card {
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .risk-card:hover { border-color: rgba(192,57,43,0.5); }
+
+    .risk-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #C0392B, transparent);
+    }
+
+    .risk-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .risk-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .risk-card p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+
+    .risk-card .risk-severity {
+      margin-top: 1.2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #E74C3C;
+    }
+
+    /* ── FUTURE ── */
+    #future {
+      background: linear-gradient(135deg, var(--parchment) 0%, var(--sand) 100%);
+    }
+
+    .future-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .future-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .future-tech-cards {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+
+    .tech-card {
+      display: flex; gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.4rem;
+      background: var(--white);
+      border-radius: 6px;
+      border: 1px solid #E8E2D9;
+      transition: box-shadow 0.2s;
+    }
+
+    .tech-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+    .tech-card-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .tech-card-body h4 {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tech-card-body p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 0 !important;
+    }
+
+    .cbdc-banner {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background: var(--ink);
+      border-radius: 8px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .cbdc-banner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .cbdc-banner p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    .cbdc-badge {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.4rem;
+    }
+
+    .cbdc-badge .badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .cbdc-badge .badge-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--saffron);
+    }
+
+    /* ── REFERENCES ── */
+    #references {
+      background: var(--ink-mid);
+      color: var(--white);
+    }
+
+    #references .section-title { color: var(--white); }
+
+    .ref-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0.4rem;
+      margin-top: 2rem;
+    }
+
+    .ref-item {
+      display: flex; gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.03);
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+
+    .ref-item:hover { background: rgba(255,255,255,0.07); }
+
+    .ref-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--saffron);
+      font-weight: 500;
+      min-width: 2rem;
+      padding-top: 0.1rem;
+    }
+
+    .ref-text {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .ref-text strong {
+      color: rgba(255,255,255,0.8);
+      display: block;
+      font-size: 0.82rem;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(232,104,12,0.15);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      font-style: italic;
+    }
+
+    .footer-left strong { color: var(--saffron); font-style: normal; }
+
+    .footer-nav {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .footer-nav a {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--saffron); }
+
+    /* ── DIVIDER ── */
+    .ornamental-divider {
+      text-align: center;
+      margin: 1rem 0 3rem;
+      color: var(--saffron);
+      font-size: 1.2rem;
+      letter-spacing: 0.5rem;
+      opacity: 0.5;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.5rem; }
+      .history-grid, .future-grid, .compare-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .arch-steps { grid-template-columns: 1fr; }
+      .arch-step::after { display: none; }
+      .arch-pillars, .risks-grid, .scalability-factors { grid-template-columns: 1fr; }
+      .global-cards-grid { grid-template-columns: 1fr; }
+      .evidence-grid { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr; }
+      .hero-jam { display: none; }
+      .cbdc-banner { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .section-pad { padding: 4rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <a href="#" class="nav-logo">The Invisible Middleman</a>
+  <ul class="nav-links">
+    <li><a href="#history">Context</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#comparative">Global</a></li>
+    <li><a href="#risks">Risks</a></li>
+    <li><a href="#future">Future</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-gradient"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">India's Welfare Revolution</div>
+    <h1>The <em>Invisible</em><br>Middleman</h1>
+    <p class="hero-subtitle">From Identity Verification to Programmable Welfare — The Evolution and Global Potential of India's JAM Trinity</p>
+    <p class="hero-description">
+      A comprehensive analysis of how Jan Dhan Yojana, Aadhaar, and Mobile connectivity transformed welfare delivery for 1.4 billion citizens — eliminating fiscal leakage, expanding financial inclusion, and laying the groundwork for programmable digital currency.
+    </p>
+    <div class="hero-cta">
+      <a href="#history" class="btn-primary">Read the Analysis ↓</a>
+      <a href="#evidence" class="btn-ghost">View Evidence</a>
+    </div>
+  </div>
+
+  <!-- JAM Trinity Pillars Visual -->
+  <div class="hero-jam">
+    <div class="jam-pillar">
+      <div class="jam-pillar-letter">J</div>
+      <div class="jam-pillar-name">Jan Dhan Yojana</div>
+      <div class="jam-pillar-desc">Universal financial inclusion — zero-balance bank accounts for every household</div>
+    </div>
+    <div class="jam-pillar">
+      <div class="jam-pillar-letter">A</div>
+      <div class="jam-pillar-name">Aadhaar</div>
+      <div class="jam-pillar-desc">Biometric identity for 1.4 billion residents — eliminating ghost beneficiaries</div>
+    </div>
+    <div class="jam-pillar">
+      <div class="jam-pillar-letter">M</div>
+      <div class="jam-pillar-name">Mobile</div>
+      <div class="jam-pillar-desc">Real-time communication layer — OTP authentication and transaction alerts</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">₹34T+</div>
+    <div class="stat-label">Transferred via DBT since inception</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">Rise in financial inclusion rate (6 years)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">42%</div>
+    <div class="stat-label">PDS leakage rate pre-JAM (2010–12)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1.4B</div>
+    <div class="stat-label">Aadhaar IDs issued to date</div>
+  </div>
+</div>
+
+<!-- ── HISTORICAL CONTEXT ── -->
+<section id="history" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter I</div>
+    <h2 class="section-title">Historical Context &amp; Policy Imperatives</h2>
+    <p class="section-lead">
+      India's JAM Trinity emerged from a prolonged crisis of fiscal mismanagement and administrative failure — a welfare system riddled with "ghost beneficiaries," opaque intermediaries, and staggering leakages.
+    </p>
+
+    <div class="history-grid">
+      <div class="history-text">
+        <p>
+          The genesis of India's JAM Trinity is rooted in a prolonged period of fiscal strain and administrative inefficiency plaguing the nation's public distribution and subsidy systems. Prior to the 2014 political transition, the architecture of welfare delivery was characterized by a reliance on <strong>opaque intermediaries, extensive paper trails, and manual processes</strong> that created fertile ground for systemic distortions — most notably "leakages."
+        </p>
+        <p>
+          These leakages represented a massive diversion of public funds intended for subsidies on essential goods and services. Research estimated all-India Public Distribution System (PDS) leakages at <strong>42% during 2010–12</strong>, while another study provided a slightly lower estimate of 35%. Both figures signify a colossal waste of national resources.
+        </p>
+        <p>
+          In response to this crisis, the concept of <strong>Direct Benefit Transfer (DBT)</strong> emerged as a central policy objective. Its primary goal was to circumvent the flawed intermediate layers of the traditional system by channeling subsidies directly into the bank accounts of eligible beneficiaries — enhancing transparency, reducing corruption, and ensuring financial assistance reached intended recipients without dilution.
+        </p>
+        <p>
+          The successful implementation of DBT hinged on two critical prerequisites that were largely absent in the pre-2014 era: a <strong>robust verifiable citizen identification system</strong> and <strong>near-universal access to formal banking infrastructure</strong>. This is where the foundational pillars of the JAM Trinity were conceived and deployed.
+        </p>
+        <p>
+          The development of this new infrastructure was not overnight but rather a strategic, multi-pronged initiative undertaken by successive governments, with strong support and technical guidance from international bodies like the World Bank. The formal recognition of the JAM Trinity came in the <strong>Economic Survey of 2015/2016</strong>, cementing its status as a key enabler of inclusive growth.
+        </p>
+      </div>
+
+      <div class="history-sidebar">
+        <div class="callout-box">
+          <div class="callout-num">35–42%</div>
+          <div class="callout-text">Estimated PDS leakage rate in 2010–12 — representing hundreds of billions of rupees diverted from intended beneficiaries annually</div>
+        </div>
+
+        <div class="callout-box" style="border-left-color: var(--green);">
+          <div class="callout-num" style="color: var(--green);">2015/16</div>
+          <div class="callout-text">Year the JAM Trinity was formally recognized in India's Economic Survey as the key enabler of inclusive growth and efficient digital governance</div>
+        </div>
+
+        <div class="callout-box" style="border-left-color: #7E57C2;">
+          <div class="callout-num" style="color: #7E57C2;">3</div>
+          <div class="callout-text">Pillars — Jan Dhan, Aadhaar, and Mobile — forming a unified, interoperable platform for India's modern digital public infrastructure</div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2009</div>
+            <div class="timeline-title">UIDAI Established</div>
+            <div class="timeline-desc">Unique Identification Authority of India launched to create a biometric identity for every resident</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2013</div>
+            <div class="timeline-title">DBT Piloted</div>
+            <div class="timeline-desc">Direct Benefit Transfer scheme piloted, exposing the need for universal bank accounts and verified IDs</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2014</div>
+            <div class="timeline-title">PMJDY Launched</div>
+            <div class="timeline-desc">Pradhan Mantri Jan-Dhan Yojana opened hundreds of millions of zero-balance bank accounts</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2016</div>
+            <div class="timeline-title">JAM Trinity Formalized</div>
+            <div class="timeline-desc">Economic Survey officially recognized the JAM framework as India's core digital governance strategy</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2016+</div>
+            <div class="timeline-title">UPI Ecosystem Emerges</div>
+            <div class="timeline-desc">JAM infrastructure enables Unified Payments Interface, revolutionizing real-time digital payments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TECHNICAL ARCHITECTURE ── -->
+<section id="architecture" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter II</div>
+    <h2 class="section-title">Technical Architecture &amp; Implementation Framework</h2>
+    <p class="section-lead">
+      The JAM Trinity is a carefully orchestrated system linking three distinct data points — individual identity, a financial account, and a communication channel — into a single, verifiable digital pipeline for welfare delivery.
+    </p>
+
+    <!-- DBT Flow -->
+    <div class="arch-steps">
+      <div class="arch-step">
+        <div class="arch-step-num">STEP 01</div>
+        <div class="arch-step-title">Beneficiary Enrollment</div>
+        <div class="arch-step-desc">Individual registers for a subsidy program, providing Aadhaar as primary identifier</div>
+      </div>
+      <div class="arch-step">
+        <div class="arch-step-num">STEP 02</div>
+        <div class="arch-step-title">Bank Account Linkage</div>
+        <div class="arch-step-desc">Aadhaar number is linked to the PMJDY bank account — mandatory for receiving government benefits</div>
+      </div>
+      <div class="arch-step">
+        <div class="arch-step-num">STEP 03</div>
+        <div class="arch-step-title">Transaction Initiation</div>
+        <div class="arch-step-desc">Ministry initiates payment via centralized portal, specifying amount, Aadhaar number, and purpose</div>
+      </div>
+      <div class="arch-step">
+        <div class="arch-step-num">STEP 04</div>
+        <div class="arch-step-title">Verification &amp; Credit</div>
+        <div class="arch-step-desc">Bank verifies Aadhaar via UIDAI database; upon success, identifies PMJDY account and credits funds</div>
+      </div>
+      <div class="arch-step">
+        <div class="arch-step-num">STEP 05</div>
+        <div class="arch-step-title">Confirmation Alert</div>
+        <div class="arch-step-desc">SMS alert sent to beneficiary's registered mobile number confirming transfer amount and source</div>
+      </div>
+    </div>
+
+    <!-- Three Pillars Deep Dive -->
+    <div class="arch-pillars">
+      <div class="arch-pillar-card">
+        <div class="arch-pillar-icon">🏛️</div>
+        <div class="arch-pillar-title">Aadhaar</div>
+        <div class="arch-pillar-subtitle">UIDAI · Biometric Backbone</div>
+        <div class="arch-pillar-desc">
+          The foundational element — a unique 12-digit identifier assigned after biometric capture of ten fingerprints, two iris scans, and a facial photograph. Creates a persistent digital identifier across all government and private services, solving the long-standing problem of duplicate and ghost beneficiaries.
+        </div>
+        <div class="arch-pillar-tags">
+          <span class="tag">Biometrics</span>
+          <span class="tag">12-digit UID</span>
+          <span class="tag">UIDAI</span>
+          <span class="tag">De-duplication</span>
+        </div>
+      </div>
+
+      <div class="arch-pillar-card">
+        <div class="arch-pillar-icon">🏦</div>
+        <div class="arch-pillar-title">Jan Dhan Yojana</div>
+        <div class="arch-pillar-subtitle">PMJDY · Financial Access</div>
+        <div class="arch-pillar-desc">
+          Addresses universal financial inclusion by ensuring every Indian household has access to a no-frills bank account with zero or low minimum balance requirements, often accompanied by a RuPay debit card and accident insurance. The mandatory Aadhaar linkage creates a tangible endpoint for any digital transfer.
+        </div>
+        <div class="arch-pillar-tags">
+          <span class="tag">Zero-Balance Accounts</span>
+          <span class="tag">RuPay Card</span>
+          <span class="tag">Financial Inclusion</span>
+        </div>
+      </div>
+
+      <div class="arch-pillar-card">
+        <div class="arch-pillar-icon">📱</div>
+        <div class="arch-pillar-title">Mobile Connectivity</div>
+        <div class="arch-pillar-subtitle">Telecom Layer · Communication</div>
+        <div class="arch-pillar-desc">
+          The essential communication layer of the entire system. Mobile numbers linked to both Aadhaar and bank accounts serve as the primary channel for real-time OTP authentication, SMS transaction alerts, and mobile banking operations — enabling last-mile verification at scale.
+        </div>
+        <div class="arch-pillar-tags">
+          <span class="tag">OTP Auth</span>
+          <span class="tag">SMS Alerts</span>
+          <span class="tag">Last-Mile Delivery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EMPIRICAL EVIDENCE ── -->
+<section id="evidence" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter III</div>
+    <h2 class="section-title">Empirical Evidence of Impact &amp; Performance</h2>
+    <p class="section-lead">
+      The JAM Trinity reveals a complex, dualistic picture — profound achievements in financial inclusion and governance efficiency, juxtaposed with persistent challenges of exclusion, privacy risk, and technological unreliability.
+    </p>
+
+    <div class="evidence-grid">
+      <div class="evidence-card positive">
+        <div class="evidence-badge pos">✓ Achievements</div>
+        <h3>Financial Inclusion Gains</h3>
+        <ul>
+          <li>Significant increase in bank account penetration, especially among the previously unbanked poor</li>
+          <li>India's financial inclusion rate rose by 80% over six years (World Bank data)</li>
+          <li>Enabled subsequent digital payment innovations, most notably UPI</li>
+          <li>PMJDY opened hundreds of millions of accounts, creating a vast financial network</li>
+        </ul>
+      </div>
+
+      <div class="evidence-card negative">
+        <div class="evidence-badge neg">✗ Challenges</div>
+        <h3>Exclusion &amp; Access Gaps</h3>
+        <ul>
+          <li>Access does not always translate to empowerment, especially for women due to social norms</li>
+          <li>Usage patterns differ significantly by gender and income level</li>
+          <li>Biometric failures disproportionately affect elderly, disabled, and manual laborers</li>
+          <li>High authentication failure rates disrupt service delivery for the most vulnerable</li>
+        </ul>
+      </div>
+
+      <div class="evidence-card positive">
+        <div class="evidence-badge pos">✓ Achievements</div>
+        <h3>Efficiency &amp; Cost Reduction</h3>
+        <ul>
+          <li>Improved last-mile delivery of cash transfers, reducing administrative delays</li>
+          <li>Reduction in operating costs for government agencies across welfare programs</li>
+          <li>Enhanced transparency and traceability of fund flows through digital audit trails</li>
+          <li>Cooking gas subsidy scheme demonstrated measurable reduction in diversion</li>
+        </ul>
+      </div>
+
+      <div class="evidence-card negative">
+        <div class="evidence-badge neg">✗ Challenges</div>
+        <h3>Privacy &amp; Security Risks</h3>
+        <ul>
+          <li>Aggregation of biometric, financial, and demographic data creates unprecedented risk</li>
+          <li>Potential for mass surveillance and misuse of data by authorities</li>
+          <li>Consent-based design undermined by practical necessity of participation</li>
+          <li>Any breach could undermine public trust in the entire digital infrastructure</li>
+        </ul>
+      </div>
+
+      <div class="evidence-card mixed">
+        <div class="evidence-badge mix">~ Mixed</div>
+        <h3>Leakage Reduction</h3>
+        <ul>
+          <li>Primary goal of reducing PDS and subsidy leakages is being addressed</li>
+          <li>Successful implementation in cooking gas subsidies via Aadhaar-linked transfers</li>
+          <li>Exclusion errors caused by authentication failures represent a new form of leakage</li>
+          <li>Diversion of funds can still occur if beneficiaries are coerced by intermediaries</li>
+        </ul>
+      </div>
+
+      <div class="evidence-card mixed">
+        <div class="evidence-badge mix">~ Mixed</div>
+        <h3>Governance &amp; Transparency</h3>
+        <ul>
+          <li>Framework enables greater fiscal autonomy for states via consolidated schemes</li>
+          <li>Strengthened auditing and accountability mechanisms across welfare programs</li>
+          <li>Reliance on mobile networks creates barriers in remote areas with poor connectivity</li>
+          <li>Legal frameworks for data protection remain underdeveloped relative to system scale</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th><span class="plus">Positive Outcomes</span></th>
+            <th><span class="minus">Negative Externalities</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Financial Inclusion</td>
+            <td>80% rise in inclusion rate; UPI ecosystem enabled</td>
+            <td>Access ≠ empowerment; gender and income inequality persist</td>
+          </tr>
+          <tr>
+            <td>Efficiency &amp; Cost</td>
+            <td>Improved last-mile delivery; reduced administrative overhead</td>
+            <td>High biometric failure rates; remote area connectivity gaps</td>
+          </tr>
+          <tr>
+            <td>Leakage Reduction</td>
+            <td>PDS leakage addressed; cooking gas subsidy success</td>
+            <td>Authentication-based exclusion = new leakage; coercion risk</td>
+          </tr>
+          <tr>
+            <td>Governance</td>
+            <td>Enhanced auditability; fiscal autonomy for states</td>
+            <td>Mass surveillance risk; weak data protection frameworks</td>
+          </tr>
+          <tr>
+            <td>Social Equity</td>
+            <td>Foundation for financial stability; aligns with development goals</td>
+            <td>Biometric failures harm elderly, disabled, manual laborers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPARATIVE MODELS ── -->
+<section id="comparative" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter IV</div>
+    <h2 class="section-title">Comparative Digital Governance Models</h2>
+    <p class="section-lead">
+      The JAM model is positioned as a prominent candidate for a "one-size-fits-all" approach to inclusive growth — but a simple replication is fraught with peril without understanding local context.
+    </p>
+
+    <div class="compare-intro">
+      <div class="compare-text">
+        <p>
+          The JAM Trinity shares conceptual similarities with other national digital ID and e-governance initiatives worldwide, though the specific implementation and scale in India are unparalleled. The emphasis on biometric data for identity verification echoes projects in countries like <strong>Indonesia and Nigeria</strong>, which have also explored large-scale biometric registration systems.
+        </p>
+        <p>
+          The focus on linking ID to financial accounts resonates with the principles behind <strong>Mexico's PROSPERA program</strong> and <strong>Brazil's Bolsa Família</strong>, which use conditional cash transfers but rely on different underlying infrastructures for identification and disbursement.
+        </p>
+        <p>
+          The key distinction of the JAM model lies in its <strong>foundational nature</strong>: unlike programs that build on top of existing infrastructure, India constructed the JAM pillars almost from scratch, creating a universal, interoperable platform supporting a multitude of services beyond welfare distribution alone.
+        </p>
+        <p>
+          The widespread success of mobile money platforms like <strong>M-Pesa in Kenya</strong> demonstrates that a purely mobile-centric approach — without a formal ID-linked bank account as a prerequisite — can also achieve remarkable financial inclusion, suggesting that the JAM model is a powerful but not singular path.
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="global-card">
+          <div class="country-tag">Kenya</div>
+          <h4>M-Pesa Model</h4>
+          <p>Mobile-first, telco-led financial inclusion without mandatory bank accounts or biometric IDs. Demonstrates viability of alternate approaches.</p>
+        </div>
+        <div class="global-card">
+          <div class="country-tag">Brazil</div>
+          <h4>Bolsa Família</h4>
+          <p>Conditional cash transfer relying on different ID and disbursement infrastructure. Targeted but less interoperable than JAM's universal platform.</p>
+        </div>
+        <div class="global-card">
+          <div class="country-tag">Mexico</div>
+          <h4>PROSPERA Program</h4>
+          <p>ID-linked cash transfers for education, health, and nutrition conditionalities. Shares DBT philosophy but at smaller demographic scale.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornamental-divider">◆ ◇ ◆</div>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--ink); margin-bottom:1.5rem;">Key Factors for Global Scalability</h3>
+
+    <div class="scalability-factors">
+      <div class="factor-card">
+        <div class="factor-icon">👥</div>
+        <h4>Demographic Dividend</h4>
+        <p>A large, young, mobile-savvy population drives organic demand-side adoption — a critical precondition that may not exist in all target nations.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-icon">💻</div>
+        <h4>Domestic IT Capacity</h4>
+        <p>India's mature IT sector can build and maintain a massive technological stack. Countries must honestly assess their technical institutional capacity.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-icon">⚖️</div>
+        <h4>Political Will &amp; Legal Safeguards</h4>
+        <p>Large-scale top-down reform requires political commitment alongside robust legal frameworks for data protection and civil liberties from day one.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-icon">🌐</div>
+        <h4>Digital Literacy Programs</h4>
+        <p>Technology alone cannot substitute for public awareness campaigns. Inclusion requires that citizens can meaningfully use the infrastructure provided.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-icon">🤝</div>
+        <h4>Institutional Trust</h4>
+        <p>Transplanting technology without addressing underlying issues of citizen trust in government systems is likely to produce adoption failure.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-icon">🔄</div>
+        <h4>Socio-Technical Adaptation</h4>
+        <p>JAM is a socio-technical system. Its successful export requires deep adaptation of social and institutional components alongside the technological ones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EMERGING RISKS ── -->
+<section id="risks" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter V</div>
+    <h2 class="section-title">Emerging Risks &amp; Systemic Vulnerabilities</h2>
+    <p class="section-lead">
+      As the JAM Trinity matures into the central nervous system of India's economy, it faces growing risks that extend beyond implementation hurdles — touching the fabric of digital rights, social equity, and technological resilience.
+    </p>
+
+    <div class="risks-grid">
+      <div class="risk-card">
+        <div class="risk-icon">🔓</div>
+        <h3>Data Privacy &amp; Security</h3>
+        <p>
+          The aggregation of biometric, financial, and demographic data within a tightly integrated system creates an unprecedented risk profile. The Aadhaar database represents a treasure trove; if compromised, consequences include identity theft, financial fraud, and social engineering. Consent-based design is undermined by the power dynamics between state and citizen — participation is practically compulsory.
+        </p>
+        <div class="risk-severity">● Severity: Critical</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon">🚫</div>
+        <h3>Exclusion Errors</h3>
+        <p>
+          Biometric authentication failure systematically disenfranchises the most vulnerable: individuals whose fingerprints are worn by manual labor, the elderly whose templates degrade over time, and those with certain medical conditions. This creates a vicious cycle — exclusion leads to lack of formal financial history, making full integration into the digital economy even harder. The system risks becoming a self-perpetuating engine of inequality.
+        </p>
+        <div class="risk-severity">● Severity: High</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon">⚡</div>
+        <h3>Systemic Technological Failure</h3>
+        <p>
+          The entire architecture relies on seamless functioning of multiple interconnected platforms: UIDAI servers, core banking systems of thousands of banks, and telecom networks of multiple operators. A failure in any node — server crash, software bug, network outage — could trigger cascading failures disrupting transfers, ATM withdrawals, and critical transactions for millions simultaneously. As UPI and future CBDCs build upon JAM, these stakes increase exponentially.
+        </p>
+        <div class="risk-severity">● Severity: High</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon">👁️</div>
+        <h3>Mass Surveillance Risk</h3>
+        <p>
+          The concentration of biometric, transactional, and demographic data raises profound concerns about mass surveillance and potential misuse of information by state or other entities, well beyond original intent. The need for robust, legally-binding data protection frameworks and transparent governance structures has never been more critical to prevent erosion of fundamental rights in the name of efficiency.
+        </p>
+        <div class="risk-severity">● Severity: High</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon">👩</div>
+        <h3>Gender &amp; Social Equity Gaps</h3>
+        <p>
+          Despite PMJDY's efforts to promote gender equality, existing social norms and structural inequalities impede women's full and effective utilization of financial accounts. Account access does not guarantee empowerment. Studies show usage patterns vary significantly by gender and income, highlighting that technological inclusion without social reform produces incomplete outcomes.
+        </p>
+        <div class="risk-severity">● Severity: Moderate–High</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon">📡</div>
+        <h3>Connectivity &amp; Infrastructure Gaps</h3>
+        <p>
+          Reliance on stable mobile networks creates barriers for those in remote areas with poor network coverage, limiting their ability to receive transaction alerts or perform mobile-based banking. Last-mile connectivity remains an unsolved challenge, particularly in rural and tribal regions where the need for welfare delivery is greatest — creating a paradox of infrastructure-driven exclusion.
+        </p>
+        <div class="risk-severity">● Severity: Moderate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUTURE TRAJECTORIES ── -->
+<section id="future" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Chapter VI</div>
+    <h2 class="section-title">Future Trajectories: Technological Integration &amp; Global Scalability</h2>
+    <p class="section-lead">
+      The JAM Trinity is poised to evolve from a foundational welfare infrastructure into a dynamic platform for next-generation digital services — driven by AI, blockchain, and most concretely, programmable Central Bank Digital Currency.
+    </p>
+
+    <div class="future-grid">
+      <div class="future-text">
+        <p>
+          The trajectory of India's JAM Trinity points toward <strong>programmable welfare</strong> — a significant leap from mere identity and payment verification. The integration of the e-rupee (India's CBDC) represents the most concrete and immediate future development, with pilot programs already underway in Gujarat, Chandigarh, and Puducherry.
+        </p>
+        <p>
+          In these CBDC pilots, subsidy amounts are credited as digital tokens into beneficiaries' wallets — but the tokens are <strong>programmed to be redeemable only for entitled food grains at authorized Fair Price Shops</strong>. This innovation completely eliminates the possibility of fund diversion, shifting from a system based on trust and post-facto audits to one enforced by code.
+        </p>
+        <p>
+          Looking forward, the JAM model presents a powerful template for other developing nations. Its core strengths — using low-cost mobile technology and a unique ID system to create a scalable, efficient platform — are highly attractive for countries facing similar challenges. However, key lessons for global scalability include building robust legal frameworks for data protection from the outset and implementing multi-layered resilient authentication systems to mitigate exclusion.
+        </p>
+        <p>
+          The JAM Trinity is not merely a technological solution but a <strong>socio-technical system</strong>. Its successful export requires deep understanding and adaptation of its social and institutional components alongside its technological ones.
+        </p>
+      </div>
+
+      <div class="future-tech-cards">
+        <div class="tech-card">
+          <div class="tech-card-icon">🤖</div>
+          <div class="tech-card-body">
+            <h4>Artificial Intelligence &amp; Big Data</h4>
+            <p>Analyzing PMJDY transactional data to identify exclusion patterns, predict vulnerable communities, and enable targeted interventions. AI applied to MGNREGA datasets has already shown promise in improving governance measurement.</p>
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">⛓️</div>
+          <div class="tech-card-body">
+            <h4>Blockchain Technology</h4>
+            <p>Decentralized, immutable ledger providing tamper-proof records of all transactions — a powerful safeguard against fraud. Scalability for 1.4 billion remains a technical hurdle, but application in high-value or cross-agency data sharing holds promise.</p>
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">💱</div>
+          <div class="tech-card-body">
+            <h4>CBDC — Programmable e-Rupee</h4>
+            <p>Most concrete near-term trajectory: programmable welfare tokens redeemable only at authorized merchants. RBI pilots in Gujarat, Chandigarh, and Puducherry testing this model for food subsidies under PDS.</p>
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">🔐</div>
+          <div class="tech-card-body">
+            <h4>Multi-Factor Authentication</h4>
+            <p>Moving beyond binary pass/fail biometric models toward resilient, multi-factor verification and robust offline fallback mechanisms to ensure no one is left behind due to technological failure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CBDC Banner -->
+    <div class="cbdc-banner">
+      <div>
+        <h3>The Programmable Welfare Revolution</h3>
+        <p>
+          The e-rupee pilots in Gujarat, Chandigarh, and Puducherry represent a historic shift: welfare subsidies credited as programmable digital tokens — redeemable only for entitled goods at authorized shops. Enforced by code, not trust. This evolution demonstrates how foundational JAM infrastructure seamlessly supports next-generation monetary instruments for targeted social policy.
+        </p>
+      </div>
+      <div class="cbdc-badge">
+        <div class="badge-label">Phase</div>
+        <div class="badge-main">e₹</div>
+        <div class="badge-label">RBI CBDC Pilot</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFERENCES ── -->
+<section id="references" class="section-pad">
+  <div class="container">
+    <div class="section-eyebrow">Bibliography</div>
+    <h2 class="section-title">References &amp; Sources</h2>
+    <p style="color:rgba(255,255,255,0.45); font-size:0.9rem; max-width:600px; line-height:1.7;">
+      This analysis draws upon 52 sources including World Bank documents, IMF working papers, academic journals, Reserve Bank of India publications, and peer-reviewed research on digital public infrastructure.
+    </p>
+
+    <div class="ref-grid">
+      <a class="ref-item" href="https://www.jstor.org/stable/24481393" target="_blank">
+        <span class="ref-num">01</span>
+        <span class="ref-text"><strong>Understanding Leakages in the Public Distribution System</strong>JSTOR — Foundational analysis of PDS leakage estimating 35–42% diversion pre-JAM</span>
+      </a>
+      <a class="ref-item" href="https://www.atlantis-press.com/article/126020958.pdf" target="_blank">
+        <span class="ref-num">02</span>
+        <span class="ref-text"><strong>Big Data and Social Welfare Governance: Evaluating MGNREGA</strong>Atlantis Press — AI and big data applications for governance improvement</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/341314214_An_Empirical_Study_of_Jan_Dhan_-_Aadhaar_-_Mobile_Trinity_and_Financial_Inclusion" target="_blank">
+        <span class="ref-num">03</span>
+        <span class="ref-text"><strong>An Empirical Study of Jan Dhan–Aadhaar–Mobile Trinity</strong>ResearchGate — Empirical investigation of JAM Trinity impact on financial inclusion</span>
+      </a>
+      <a class="ref-item" href="https://www.academia.edu/45580628/An_Empirical_Study_of_Jan_Dhan_Aadhaar_Mobile_Trinity_and_Financial_Inclusion" target="_blank">
+        <span class="ref-num">04</span>
+        <span class="ref-text"><strong>An Empirical Study of JAM Trinity and Financial Inclusion</strong>Academia.edu — Mobile connectivity as communication layer analysis</span>
+      </a>
+      <a class="ref-item" href="https://documents1.worldbank.org/curated/en/099042224142537410/pdf/BOSIB14e473f1d0661ac6b175c6193e066f.pdf" target="_blank">
+        <span class="ref-num">05</span>
+        <span class="ref-text"><strong>Implementation Completion and Results Report</strong>World Bank — Last-mile delivery improvement and institutional support documentation</span>
+      </a>
+      <a class="ref-item" href="https://www.imf.org/-/media/files/publications/wp/2023/english/wpiea2023078-print-pdf.pdf" target="_blank">
+        <span class="ref-num">06</span>
+        <span class="ref-text"><strong>Stacking up the Benefits: Lessons from India's Digital Journey</strong>IMF Working Paper — Comprehensive assessment of India's digital financial inclusion journey</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/349110145_Impact_Assessment_of_Pradhan_Mantri_Jan-Dhan_Yojana_in_Augmenting_Financial_Inclusion_in_India_-_A_District-Level_Analysis" target="_blank">
+        <span class="ref-num">07</span>
+        <span class="ref-text"><strong>Impact Assessment of PMJDY — A District-Level Analysis</strong>ResearchGate — Granular district-level evidence of financial inclusion impact</span>
+      </a>
+      <a class="ref-item" href="https://openknowledge.worldbank.org/bitstreams/c5f1fc39-7a91-41e6-9965-6355465b5f72/download" target="_blank">
+        <span class="ref-num">08</span>
+        <span class="ref-text"><strong>G20 Policy Recommendations</strong>World Bank — JAM Trinity as model for global digital public infrastructure adoption</span>
+      </a>
+      <a class="ref-item" href="https://documents1.worldbank.org/curated/en/670201508260320095/pdf/DCS2017-0045-India-10142017.pdf" target="_blank">
+        <span class="ref-num">09</span>
+        <span class="ref-text"><strong>Development Committee — World Bank Documents</strong>World Bank — PMJDY financial inclusion expansion and bank account penetration</span>
+      </a>
+      <a class="ref-item" href="https://www.linkedin.com/posts/prasannalohar_chandigarh-gujarat-activity-7433096161164660736-ALkP" target="_blank">
+        <span class="ref-num">10</span>
+        <span class="ref-text"><strong>India CBDC PDS Pilot — Chandigarh, Gujarat, Puducherry</strong>LinkedIn — Programmable e-rupee welfare token pilot program documentation</span>
+      </a>
+      <a class="ref-item" href="https://www.adb.org/sites/default/files/publication/1114321/digital-public-infrastructure-south-asia.pdf" target="_blank">
+        <span class="ref-num">11</span>
+        <span class="ref-text"><strong>Digital Public Infrastructure in South Asia</strong>Asian Development Bank — Aadhaar as biometric identity backbone for South Asian DPI</span>
+      </a>
+      <a class="ref-item" href="https://www.elibrary.imf.org/display/book/9798400223525/CH007.xml" target="_blank">
+        <span class="ref-num">12</span>
+        <span class="ref-text"><strong>Digital Financial Services and Inclusion in India</strong>IMF eLibrary — JAM Trinity architecture, mobile layer, and DBT pipeline design</span>
+      </a>
+      <a class="ref-item" href="https://www.scribd.com/document/323963418/Direct-Benefit-Transfer-Scheme-in-India-pdf" target="_blank">
+        <span class="ref-num">13</span>
+        <span class="ref-text"><strong>Direct Benefit Transfer Scheme in India</strong>Scribd — DBT policy objectives, implementation, and leakage reduction goals</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/331861666_A_critical_analysis_of_direct_benefit_transfer_in_India" target="_blank">
+        <span class="ref-num">14</span>
+        <span class="ref-text"><strong>A Critical Analysis of Direct Benefit Transfer in India</strong>ResearchGate — Administrative failure, record-keeping, and identity duplication problems</span>
+      </a>
+      <a class="ref-item" href="https://www.mdpi.com/2071-1050/14/16/10117" target="_blank">
+        <span class="ref-num">15</span>
+        <span class="ref-text"><strong>Digitalized Welfare for Sustainable Energy Transitions</strong>MDPI — Cooking gas subsidy biometric authentication and transparent traceability</span>
+      </a>
+      <a class="ref-item" href="https://documents1.worldbank.org/curated/en/745871522848339938/txt/Public-Sector-Savings-and-Revenue-from-Identification-Systems-Opportunities-and-Constraints.txt" target="_blank">
+        <span class="ref-num">16</span>
+        <span class="ref-text"><strong>Public Sector Savings from Identification Systems</strong>World Bank — Operating cost reduction and administrative savings from digital ID</span>
+      </a>
+      <a class="ref-item" href="https://ijarm.com/pdfcopy/2022/aug2022/ijarm7.pdf" target="_blank">
+        <span class="ref-num">17</span>
+        <span class="ref-text"><strong>JAM Trinity: A Study of Rural Area in Dehradun District</strong>IJARM — Mobile connectivity as two-way communication and OTP authentication layer</span>
+      </a>
+      <a class="ref-item" href="https://thedocs.worldbank.org/en/doc/400139d320ead96a0ec624d3608d9b56-0310012025/original/India-Country-Economic-Memorandum-2024-0227c.pdf" target="_blank">
+        <span class="ref-num">18</span>
+        <span class="ref-text"><strong>Becoming a High-Income Economy in a Generation</strong>World Bank — India Country Economic Memorandum 2024; JAM as digital infrastructure</span>
+      </a>
+      <a class="ref-item" href="https://www.undp.org/sites/g/files/zskgke326/files/2023-11/undp_regional_human_development_report_web_final20nov.pdf" target="_blank">
+        <span class="ref-num">19</span>
+        <span class="ref-text"><strong>New Directions for Human Development in Asia and the Pacific</strong>UNDP — 80% rise in India's financial inclusion rate over six years</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/362184318_DIGITAL_FINANCIAL_INCLUSION_IN_INDIA-AN_OVERVIEW" target="_blank">
+        <span class="ref-num">20</span>
+        <span class="ref-text"><strong>Digital Financial Inclusion in India — An Overview</strong>ResearchGate — Comprehensive overview of India's digital financial inclusion trajectory</span>
+      </a>
+      <a class="ref-item" href="https://web-assets.bcg.com/73/e5/e11f0db54da18a31a7cb55c1bef2/upi-the-global-benchmark-for-digital-payments.pdf" target="_blank">
+        <span class="ref-num">21</span>
+        <span class="ref-text"><strong>UPI: The Global Benchmark for Digital Payments</strong>BCG / NPCI — UPI as natural extension of JAM infrastructure; global benchmark</span>
+      </a>
+      <a class="ref-item" href="https://www.imf.org/-/media/files/publications/wp/2021/english/wpiea2021111-print-pdf.pdf" target="_blank">
+        <span class="ref-num">22</span>
+        <span class="ref-text"><strong>Is There a One-Size-Fits-All Approach to Inclusive Growth?</strong>IMF Working Paper — JAM Trinity as candidate model for global inclusive growth strategies</span>
+      </a>
+      <a class="ref-item" href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/isd2.12053" target="_blank">
+        <span class="ref-num">23</span>
+        <span class="ref-text"><strong>A Critical Realist Case Study of India's Aadhaar Project</strong>Wiley — Biometric authentication failures, exclusion errors, and trust in large infrastructure</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/327851948_Explaining_Trust_in_Large_Biometric_Infrastructures_A_Critical_Realist_Case_Study_of_India%27s_Aadhaar_Project" target="_blank">
+        <span class="ref-num">24</span>
+        <span class="ref-text"><strong>Explaining Trust in Large Biometric Infrastructures</strong>ResearchGate — Privacy risks, mass surveillance potential, and duplicate identity elimination</span>
+      </a>
+      <a class="ref-item" href="https://link.springer.com/chapter/10.1007/978-3-031-50747-2_9" target="_blank">
+        <span class="ref-num">25</span>
+        <span class="ref-text"><strong>Welfare Reforms and the Leviathan State</strong>Springer — Biometric failures disproportionately affecting elderly, disabled, and laborers</span>
+      </a>
+      <a class="ref-item" href="https://www.imf.org/-/media/files/publications/wp/2021/english/wpiea2021111-print-pdf.pdf" target="_blank">
+        <span class="ref-num">26</span>
+        <span class="ref-text"><strong>PMJDY and Rural Banking — Short Notes</strong>JAIIB CAIIB — No-frills account features, zero-balance requirements, and RuPay debit cards</span>
+      </a>
+      <a class="ref-item" href="https://www.civilsdaily.com/story/economic-indicators-gdp-fd/" target="_blank">
+        <span class="ref-num">27</span>
+        <span class="ref-text"><strong>Economic Indicators and Various Reports</strong>Civils Daily — Exclusionary pitfalls in India that global adaptations must avoid</span>
+      </a>
+      <a class="ref-item" href="https://vajiramweb-test.s3.ap-south-1.amazonaws.com/media/2023/8/12/17/24/23/one-pager-upsc-mains-quick-revision-notes.pdf" target="_blank">
+        <span class="ref-num">28</span>
+        <span class="ref-text"><strong>UPSC Mains Quick Revision Notes</strong>Vajram — Gender inequalities limiting women's utilization of JAM accounts</span>
+      </a>
+      <a class="ref-item" href="https://www.researchgate.net/publication/321009882_JAM_TRINITY_TRANSFORMING_RURAL_LANDSCAPE_THROUGH_FINANCIAL_INCLUSION" target="_blank">
+        <span class="ref-num">29</span>
+        <span class="ref-text"><strong>JAM Trinity: Transforming Rural Landscape Through Financial Inclusion</strong>ResearchGate — Rural financial inclusion and agricultural community impact</span>
+      </a>
+      <a class="ref-item" href="https://documents1.worldbank.org/curated/en/099047109122390725/pdf/IDU1b7a4f23c179c21456f1aad4149123f89621a.pdf" target="_blank">
+        <span class="ref-num">30</span>
+        <span class="ref-text"><strong>Financial Inclusion and Stability</strong>World Bank — Foundation for financial stability and citizen empowerment through inclusion</span>
+      </a>
+      <a class="ref-item" href="https://www.imf.org/-/media/files/publications/wp/2017/wp17236.pdf" target="_blank">
+        <span class="ref-num">31</span>
+        <span class="ref-text"><strong>Inequality in Financial Inclusion and Income Inequality (WP/17/236)</strong>IMF — Structural inequalities persisting despite financial access improvements</span>
+      </a>
+      <a class="ref-item" href="https://openknowledge.worldbank.org/entities/publication/8ba60ee1-0d53-5718-bbc1-206fcb8164c2" target="_blank">
+        <span class="ref-num">32</span>
+        <span class="ref-text"><strong>Financial Inclusion and Legal Discrimination Against Women</strong>World Bank Open Knowledge — Gender-based legal barriers limiting full financial inclusion</span>
+      </a>
+      <a class="ref-item" href="https://www.imf.org/external/pubs/ft/wp/2014/wp1436.pdf" target="_blank">
+        <span class="ref-num">33</span>
+        <span class="ref-text"><strong>Assessing Countries' Financial Inclusion Standing</strong>IMF — Methodology for measuring financial inclusion across nations</span>
+      </a>
+      <a class="ref-item" href="https://www.elibrary.imf.org/downloadpdf/view/journals/001/2022/080/article-A001-en.pdf" target="_blank">
+        <span class="ref-num">34</span>
+        <span class="ref-text"><strong>IMF eLibrary — Financial Inclusion Report 2022</strong>IMF — Digital solutions reversing financial inclusion decline; M-Pesa comparator</span>
+      </a>
+      <a class="ref-item" href="https://www.elibrary.imf.org/view/journals/001/2024/150/article-A001-en.xml" target="_blank">
+        <span class="ref-num">35</span>
+        <span class="ref-text"><strong>Understanding Barriers to Financial Access</strong>IMF — Structural barriers and connectivity gaps limiting last-mile financial access</span>
+      </a>
+      <a class="ref-item" href="https://ifacweb.blob.core.windows.net/publicfiles/accountability-index-2026/India-financial-statements.pdf" target="_blank">
+        <span class="ref-num">38</span>
+        <span class="ref-text"><strong>Annual Report 2023–2024</strong>IFAC — Aggregation of sensitive data; privacy and transparency governance requirements</span>
+      </a>
+      <a class="ref-item" href="https://openknowledge.worldbank.org/bitstreams/b226c7a0-255a-518f-b695-15eff4748a5d/download" target="_blank">
+        <span class="ref-num">40</span>
+        <span class="ref-text"><strong>World Bank Open Knowledge Repository</strong>World Bank — NITI Aayog and World Bank support for JAM implementation framework</span>
+      </a>
+      <a class="ref-item" href="https://documents1.worldbank.org/curated/en/099022725232041885/pdf/P175027-38446b18-85d1-45c2-8628-9662d283ed24.pdf" target="_blank">
+        <span class="ref-num">45</span>
+        <span class="ref-text"><strong>India Country Economic Memorandum</strong>World Bank — Comprehensive country economic analysis including digital governance reforms</span>
+      </a>
+      <a class="ref-item" href="https://www.elibrary.imf.org/downloadpdf/book/9781513531625/9781513531625.pdf" target="_blank">
+        <span class="ref-num">46</span>
+        <span class="ref-text"><strong>IMF eLibrary — Fiscal Leakage and Subsidy Reform</strong>IMF — Redistributive goals and systemic distortions in welfare delivery systems</span>
+      </a>
+      <a class="ref-item" href="https://www.undp.org/sites/g/files/zskgke326/files/2023-11/undp_regional_human_development_report_web_final_0.pdf" target="_blank">
+        <span class="ref-num">47</span>
+        <span class="ref-text"><strong>New Directions for Human Development in Asia and the Pacific</strong>UNDP — Sustainable development, capability enlargement, and digital governance</span>
+      </a>
+      <a class="ref-item" href="https://link.springer.com/content/pdf/10.1007/978-3-032-11310-8.pdf" target="_blank">
+        <span class="ref-num">49</span>
+        <span class="ref-text"><strong>Perspectives on Sustainable Development Goals</strong>Springer — Technology solutions must tackle persistent exclusion, not create new forms</span>
+      </a>
+      <a class="ref-item" href="https://webimages.iadb.org/publications/english/document/Integration-and-Trade-Journal-Volume-22-No-44-July-2018-Planet-Algorithm-Artificial-Intelligence-for-a-Predictive-and-Inclusive-form-of-Integration-in-Latin-America.pdf" target="_blank">
+        <span class="ref-num">50</span>
+        <span class="ref-text"><strong>AI for Predictive and Inclusive Integration in Latin America</strong>IADB — Comparative AI-driven approaches to financial inclusion in emerging economies</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-left">
+    <strong>The Invisible Middleman</strong><br>
+    India's JAM Trinity — From Identity to Programmable Welfare<br>
+    <span style="font-size:0.85rem; color:rgba(255,255,255,0.3); font-style:normal;">Created by <strong style="color:var(--saffron-light);">Kallol Chakrabarti</strong>, Global Independent Researcher</span>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="#history">Context</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#comparative">Global</a></li>
+    <li><a href="#risks">Risks</a></li>
+    <li><a href="#future">Future</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Smooth scroll enhancement and intersection observer for subtle animations
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Animate stats on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.evidence-card, .risk-card, .tech-card, .factor-card, .arch-pillar-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` 
+        ? 'var(--saffron)' 
+        : 'rgba(255,255,255,0.7)';
+    });
+  });
+</script>
+</body>
+</html>
